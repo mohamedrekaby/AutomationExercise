@@ -1,6 +1,9 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class signupPage {
     public final By enterAccountCreationTitle = By.xpath("//h2/b");
@@ -25,6 +28,7 @@ public class signupPage {
     private final By accountCreatedMsg = By.cssSelector("div[class=\"col-sm-9 col-sm-offset-1\"]>h2");
     private final By continueBtn = By.cssSelector("a[data-qa=\"continue-button\"]");
     private final By logoutBtn = By.linkText("Logout"); //logout button
+    private final By honorific = By.cssSelector("div.radio-inline label");
 
     protected WebDriver driver;
 
@@ -43,12 +47,23 @@ public class signupPage {
         driver.findElement(signupBtn).click();
     }
 
+    public void SelectTitle(String userTitle) {
+        List<WebElement> options = driver.findElements(honorific);
+        for (WebElement option : options) {
+            if (option.getText().trim().equalsIgnoreCase(userTitle)) {
+                option.click();
+                break;
+            }
+        }
+    }
+
     public String enterAccountTitlePage() {
         return driver.findElement(enterAccountCreationTitle).getText();
     }
 
-    public void accountInformation(String Password, int day, String month, String year, String firstName, String lastName, String company, String address1, String country, String state, String city, String zipcode, String mobileNumber) {
-        driver.findElement(title).click();
+    public void accountInformation(String userTitle, String Password, int day, String month, String year, String firstName, String lastName, String company, String address1, String country, String state, String city, String zipcode, String mobileNumber) {
+//        driver.findElement(title).click();
+        SelectTitle(userTitle);
         driver.findElement(password).sendKeys(Password);
         Select selectDay = new Select(driver.findElement(dayListSelector));
         selectDay.selectByValue(String.valueOf(day));
@@ -61,6 +76,8 @@ public class signupPage {
         driver.findElement(this.company).sendKeys(company);
         driver.findElement(this.address1).sendKeys(address1);
         Select selectCountry = new Select(driver.findElement(countryListSelector));
+//        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(countryListSelector));
         selectCountry.selectByValue(country);
         driver.findElement(this.state).sendKeys(state);
         driver.findElement(this.city).sendKeys(city);

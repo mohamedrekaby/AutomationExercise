@@ -1,5 +1,5 @@
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
@@ -13,7 +13,7 @@ public class TestBase {
     @BeforeSuite
     public void setup() {
 
-        driver = new FirefoxDriver();
+        driver = new EdgeDriver();
         driver.manage().window().maximize();
         driver.navigate().to("https://automationexercise.com/");
 

@@ -7,7 +7,7 @@ public class Login extends TestBase {
 
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginPage();
-        loginPage.userCanLogin("muhamed30@gmail.com", "123456");
+        loginPage.userCanLogin("muhamed45@gmail.com", "123456");
         softAssert.assertTrue(loginPage.loggedInSuccessfully(), "The user was not logged in successfully");
         softAssert.assertAll(); // ensures all soft assertions are checked
 
